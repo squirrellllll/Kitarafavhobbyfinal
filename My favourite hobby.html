@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Favourite Hobby</title>
+
+<style>
+
+/* 🎨 COLOR SYSTEM */
+:root {
+  --film-brown: #8b6f4e;
+  --soft-pink: #e8a9b0;
+  --dusty-pink: #f2c6cc;
+  --cream: #f8f1e7;
+  --warm-bg: #f3e8db;
+}
+
+/* 🌸 BODY */
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  line-height: 1.7;
+  background: linear-gradient(135deg, #f3e8db 0%, #e6d5c3 100%);
+  color: #2c3e50;
+}
+
+/* 🧭 NAV */
+nav {
+  background: white;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #d4a373;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #f5b7b1;
+}
+
+/* 🎞 HERO */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 3.5em;
+  color: var(--film-brown);
+  letter-spacing: 2px;
+}
+
+.hero p {
+  font-size: 1.4em;
+  color: var(--soft-pink);
+  font-style: italic;
+}
+
+/* 📦 CONTAINER */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 🎬 SECTIONS */
+.section {
+  background: var(--cream);
+  margin-bottom: 60px;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  border: 1px solid #e6d5c3;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle grain */
+.section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  opacity: 0.12;
+  pointer-events: none;
+  border-radius: 8px;
+}
+
+.section h2 {
+  color: var(--film-brown);
+  border-bottom: 2px solid var(--dusty-pink);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+/* 📷 CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: rotate(-1deg) scale(1.03);
+  box-shadow: 0 15px 35px rgba(232, 169, 176, 0.5);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  filter: sepia(10%) contrast(105%) brightness(98%);
+}
+
+/* ✨ TEXT BELOW */
+.text-below {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.text-below h3 {
+  color: var(--film-brown);
+  margin-bottom: 10px;
+}
+
+.text-below p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+/* 🎞 GAME SECTION */
+.game-section {
+  text-align: center;
+}
+
+.game-text {
+  font-style: italic;
+  margin-bottom: 30px;
+  color: var(--film-brown);
+}
+
+/* 🎬 FILM BUTTON */
+.film-button {
+  display: inline-block;
+  padding: 18px 45px;
+  background: linear-gradient(135deg, #8b6f4e, #a8845d);
+  color: white;
+  text-decoration: none;
+  font-size: 1.1em;
+  letter-spacing: 2px;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+  transition: all 0.35s ease;
+  font-weight: bold;
+}
+
+.film-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  opacity: 0.15;
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+.film-button:hover {
+  background: linear-gradient(135deg, #e8a9b0, #d48b95);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 18px 35px rgba(232, 169, 176, 0.5);
+}
+
+/* 🌸 LIGHTBOX */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(232, 169, 176, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.lightbox img {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  font-size: 42px;
+  color: white;
+  cursor: pointer;
+  font-weight: 300;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--soft-pink);
+  font-style: italic;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+  <ul>
+    <li><a href="My favourite hobby.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="tips.html">Tips</a></li>
+    <li><a href="photos.html">Photos</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <h1>My Favourite Hobby</h1>
+  <p>Photography By: Kitara Sequeira M.3/3</p>
+</section>
+
+<div class="container">
+
+  <section class="section">
+    <h2>This Website</h2>
+    <p>
+      This website is for you guys to get to know more about me and my favourite hobby,
+      along with tips and things I've learned since I started taking pictures.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>What I Photograph</h2>
+
+    <div class="cards">
+      <div class="card" onclick="openLightbox('mn.jpg')">
+        <img src="mn.jpg">
+      </div>
+
+      <div class="card" onclick="openLightbox('UK.jpg')">
+        <img src="UK.jpg">
+      </div>
+
+      <div class="card" onclick="openLightbox('tp.jpeg')">
+        <img src="tp.jpeg">
+      </div>
+    </div>
+
+    <div class="text-below">
+      <h3>Nature, Travel and Everyday Life</h3>
+      <p>
+        I enjoy photographing nature such as the sky, mountains, and waterfalls,
+        as well as places I visit while traveling and small everyday moments
+        that feel special to me.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- 🎞 GAME BUTTON SECTION -->
+  <section class="section game-section">
+    <h2>Photography Memory Game</h2>
+    <p class="game-text">
+      A little game for you to play (i hope it works)
+    </p>
+
+    <a href="game.html" class="film-button">
+      🎞️ Play Game
+    </a>
+  </section>
+
+</div>
+
+<footer>
+  <p>For pictures go to kitara_seq</p>
+</footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="close">&times;</span>
+  <img id="lightbox-img">
+</div>
+
+<script>
+function openLightbox(imageSrc) {
+  document.getElementById("lightbox").style.display = "flex";
+  document.getElementById("lightbox-img").src = imageSrc;
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>About Me</title>
+
+<style>
+
+/* 🎨 SAME COLOR VARIABLES */
+:root {
+  --film-brown: #8b6f4e;
+  --soft-pink: #e8a9b0;
+  --dusty-pink: #f2c6cc;
+  --cream: #f8f1e7;
+  --warm-bg: #f3e8db;
+}
+
+/* 🌸 BODY (MATCHING PHOTOS PAGE) */
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  line-height: 1.7;
+  background: linear-gradient(135deg, #f3e8db 0%, #e6d5c3 100%);
+  color: #2c3e50;
+}
+
+/* 🧭 NAV (unchanged but layered correctly) */
+nav {
+  background: white;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #d4a373;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #f5b7b1;
+}
+
+/* 🎞 HEADER */
+.header {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.header h1 {
+  font-size: 3em;
+  color: var(--film-brown);
+  letter-spacing: 2px;
+}
+
+.header p {
+  color: var(--soft-pink);
+  font-style: italic;
+  font-size: 1.3em;
+}
+
+/* 📦 CONTAINER */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 🎬 FILM STYLE SECTIONS */
+.section {
+  background: var(--cream);
+  margin-bottom: 60px;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  border: 1px solid #e6d5c3;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle grain texture */
+.section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  opacity: 0.12;
+  pointer-events: none;
+  border-radius: 8px;
+}
+
+.section h2 {
+  color: var(--film-brown);
+  border-bottom: 2px solid var(--dusty-pink);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+/* paragraph styling */
+.section p {
+  font-style: italic;
+  color: #3b3b3b;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--soft-pink);
+  font-style: italic;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+  <ul>
+    <li><a href="My favourite hobby.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="tips.html">Tips</a></li>
+    <li><a href="photos.html">Photos</a></li>
+  </ul>
+</nav>
+
+<header class="header">
+  <h1>About Me</h1>
+  <p>Kitara Sequeira</p>
+</header>
+
+<div class="container">
+
+  <section class="section">
+    <h2>Who I Am</h2>
+    <p>My name is Kitara Sequeira (Tara). I am 14 years old and a student in TUP. I'm quite extroverted, and I love to try out different hobbies, but I'm mostly interested in photography. I would say I'm adventurous, and I'm very open to trying new things.</p>
+  </section>
+
+  <section class="section">
+    <h2>My Photography Journey</h2>
+    <p>I remember taking pictures for my older sister ever since I was young, and to be honest I think that's where my interest for photography started. I enjoy photography because of the feeling I get when I see beautiful scenery and when people want me to take photos of them.</p>
+  </section>
+
+  <section class="section">
+    <h2>What Photography Means to Me</h2>
+    <p>Taking photographs makes me feel seen. When people see the photos I take, I try to see their reactions to see if they like it or not. Being able to see the joy on people's faces when they like my pictures means the world to me.</p>
+  </section>
+
+  <section class="section">
+    <h2>My Style and Interests</h2>
+    <p>I don't really have specific things I take pictures of, but I do take a lot of pictures of scenery such as mountains and beaches. I also post them on my Instagram for people to see. I take pictures of my friends too. I think it's quite fun to direct and tell them how to pose.</p>
+  </section>
+
+  <section class="section">
+    <h2>Looking Ahead</h2>
+    <p>I would really love to get a professional camera one day and take lots of pictures with it. I see myself taking a more serious route with photography and maybe even think about including it in my job in the future.</p>
+  </section>
+
+</div>
+
+<footer>
+  <p>For pictures go to kitara_seq</p>
+</footer>
+
+</body>
+</html>
+
+</html>
+
+
+

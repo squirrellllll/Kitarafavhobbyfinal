@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Match the photos</title>
+
+<style>
+
+/* 🎨 FILM COLORS */
+:root {
+  --film-brown: #8b6f4e;
+  --soft-pink: #e8a9b0;
+  --dusty-pink: #f2c6cc;
+  --cream: #f8f1e7;
+  --warm-bg: #f3e8db;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: linear-gradient(135deg, #f3e8db 0%, #e6d5c3 100%);
+  text-align: center;
+  color: #4a3f35;
+}
+
+h1 {
+  padding: 60px 0 10px;
+  color: var(--film-brown);
+  letter-spacing: 2px;
+}
+
+p {
+  color: var(--soft-pink);
+  font-style: italic;
+}
+
+/* 🎯 STATS BAR */
+.stats {
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: var(--film-brown);
+}
+
+/* 🃏 GAME GRID */
+.game-container {
+  max-width: 900px;
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  padding: 20px;
+}
+
+.card {
+  height: 160px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card.flip {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.card-front {
+  transform: rotateY(180deg);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(10%) contrast(105%) brightness(98%);
+}
+
+.card-back {
+  background: var(--film-brown);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dusty-pink);
+  font-size: 28px;
+  letter-spacing: 3px;
+}
+
+/* 🎬 BUTTONS */
+button {
+  margin: 30px 10px;
+  padding: 12px 30px;
+  background: var(--soft-pink);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  font-size: 1em;
+  letter-spacing: 2px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: var(--film-brown);
+}
+
+/* 🎥 WIN OVERLAY */
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(139,111,78,0.9);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.8em;
+  z-index: 9999;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.stars {
+  font-size: 2em;
+  margin-top: 15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Match the photos</h1>
+<p>Develop the matching prints 📸</p>
+
+<div class="stats">
+  ⏱️ Time: <span id="time">0</span>s |
+  🏆 Moves: <span id="moves">0</span>
+</div>
+
+<div class="game-container" id="game"></div>
+
+<div>
+  <button onclick="startGame()">Restart</button>
+  <button onclick="goHome()">← Back to Home</button>
+</div>
+
+<div id="overlay">
+  <div>📸 Developing Film...</div>
+  <div id="finalStats"></div>
+  <div class="stars" id="starRating"></div>
+  <button onclick="closeOverlay()">Play Again</button>
+</div>
+
+<script>
+
+const images = [
+  "mn.jpg",
+  "water.jpeg",
+  "waterfall.jpg",
+  "m.jpeg",
+  "tree.jpeg",
+  "loy.jpeg"
+];
+
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+let matches = 0;
+let moves = 0;
+let time = 0;
+let timerInterval;
+
+/* DUPLICATE */
+function generateCards() {
+  return [...images, ...images];
+}
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  time = 0;
+  document.getElementById("time").textContent = time;
+  timerInterval = setInterval(() => {
+    time++;
+    document.getElementById("time").textContent = time;
+  }, 1000);
+}
+
+function startGame() {
+  const game = document.getElementById("game");
+  game.innerHTML = "";
+
+  matches = 0;
+  moves = 0;
+  document.getElementById("moves").textContent = moves;
+
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+
+  startTimer();
+
+  let cardImages = shuffle(generateCards());
+
+  cardImages.forEach(image => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    card.innerHTML = `
+      <div class="card-front">
+        <img src="${image}">
+      </div>
+      <div class="card-back">
+        FILM
+      </div>
+    `;
+
+    card.addEventListener("click", () => flipCard(card));
+    game.appendChild(card);
+  });
+}
+
+function flipCard(card) {
+  if (lockBoard || card === firstCard) return;
+
+  card.classList.add("flip");
+
+  if (!firstCard) {
+    firstCard = card;
+    return;
+  }
+
+  secondCard = card;
+  moves++;
+  document.getElementById("moves").textContent = moves;
+
+  lockBoard = true;
+  checkMatch();
+}
+
+function checkMatch() {
+  const isMatch =
+    firstCard.querySelector("img").src ===
+    secondCard.querySelector("img").src;
+
+  if (isMatch) {
+    matches++;
+    if (matches === images.length) {
+      winGame();
+    }
+    resetTurn();
+  } else {
+    setTimeout(() => {
+      firstCard.classList.remove("flip");
+      secondCard.classList.remove("flip");
+      resetTurn();
+    }, 1000);
+  }
+}
+
+function winGame() {
+  clearInterval(timerInterval);
+
+  document.getElementById("overlay").style.display = "flex";
+  document.getElementById("finalStats").innerHTML =
+    `⏱️ ${time}s | 🏆 ${moves} moves`;
+
+  let stars = "⭐";
+  if (moves <= 12) stars = "⭐⭐⭐";
+  else if (moves <= 15) stars = "⭐⭐";
+
+  document.getElementById("starRating").textContent = stars;
+}
+
+function closeOverlay() {
+  document.getElementById("overlay").style.display = "none";
+  startGame();
+}
+
+function resetTurn() {
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+}
+
+function goHome() {
+  window.location.href = "My favourite hobby.html";
+}
+
+startGame();
+
+</script>
+
+</body>
+</html>
+
+
+
